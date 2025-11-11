@@ -1,0 +1,219 @@
+/* =============================
+   🌐 BỐ CỤC CHUNG
+============================= */
+.home-wrap {
+  font-family: "Inter", sans-serif;
+  color: #222;
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =============================
+   🔹 HEADER
+============================= */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  background: #ffffff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1677ff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+/* =============================
+   🎯 HERO SECTION
+============================= */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(to bottom, #f9fbff, #ffffff);
+}
+
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #555;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 25px auto;
+  line-height: 1.6;
+}
+
+.hero .btn.big {
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* =============================
+   🧭 BUTTON STYLE
+============================= */
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn.primary {
+  background: #1677ff;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #005ee6;
+}
+
+.btn.ghost {
+  background: white;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.btn.ghost:hover {
+  border-color: #1677ff;
+  color: #1677ff;
+}
+
+.btn.seller {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn.seller:hover {
+  background: #d97706;
+}
+
+/* =============================
+   🧱 MODAL
+============================= */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: white;
+  border-radius: 10px;
+  width: 400px;
+  max-height: 90vh;
+  padding: 25px 30px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #1677ff;
+}
+
+.form label {
+  display: block;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.form input {
+  width: 100%;
+  padding: 9px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.form input:focus {
+  border-color: #1677ff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(22, 119, 255, 0.2);
+}
+
+.form hr {
+  margin: 18px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+/* =============================
+   🍞 TOAST
+============================= */
+.toast {
+  position: fixed;
+  bottom: 22px;
+  right: 25px;
+  background: #111;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================
+   ⚓ FOOTER
+============================= */
+.home-footer {
+  text-align: center;
+  padding: 18px 10px;
+  font-size: 14px;
+  color: #666;
+  border-top: 1px solid #eee;
+  background-color: #fafafa;
+}
