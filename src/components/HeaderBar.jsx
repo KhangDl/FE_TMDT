@@ -28,7 +28,7 @@ export default function HeaderBar({ extra }) {
       {/* Logo */}
       <div
         style={{
-          color: "white",
+          color: "#00FF7F",
           fontSize: 22,
           fontWeight: 700,
           display: "flex",
@@ -37,7 +37,7 @@ export default function HeaderBar({ extra }) {
         }}
       >
         <ShoppingOutlined style={{ fontSize: 24 }} />
-        webgoiysanpham
+        An Khang Bình Vượng
       </div>
 
       {/* Menu */}

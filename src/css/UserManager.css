@@ -1,0 +1,275 @@
+/* =====================================================================
+   ADMIN - QUẢN LÝ NGƯỜI DÙNG (UserManager.css)
+   Phiên bản: Tối ưu cho Table, Dropdown Status, CRUD Buttons, và Modal Sửa.
+===================================================================== */
+
+/* --- 1. ADMIN PAGE CONTENT --- */
+.admin-page-content {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #343a40;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.loading-text {
+    color: #007bff;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+/* --- 2. TABLE STYLES --- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    border-radius: 10px;
+    overflow: hidden; 
+    font-size: 14px;
+}
+
+.data-table th, .data-table td {
+    padding: 14px 18px; 
+    text-align: left;
+    border-bottom: 1px solid #e9ecef; 
+}
+
+.data-table thead th {
+    background-color: #e9ecef; 
+    color: #495057;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none; 
+}
+
+.data-table tbody tr:hover {
+    background-color: #f1f3f5; 
+}
+
+/* Highlight hàng cần duyệt */
+.data-table .row-pending {
+    background-color: #fff8e1; /* Màu vàng nhạt */
+}
+
+/* 🔥 Highlight dòng bị CẤM (BANNED) */
+.data-table .row-banned {
+    background-color: #fcebeb; /* Màu nền đỏ nhạt */
+    color: #a94442; /* Màu chữ đỏ đậm */
+    font-style: italic;
+    opacity: 0.75; 
+}
+.data-table .row-banned:hover {
+    background-color: #f9dcdc;
+}
+
+/* --- 3. TAGS & STATUS SELECT --- */
+.status-tag, .role-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px; 
+    font-weight: 600;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Role Styles */
+.role-seller { background-color: #ffe3f1; color: #d0027f; border: 1px solid #d0027f; }
+.role-admin { background-color: #e0f2fe; color: #007bff; border: 1px solid #007bff; }
+.role-buyer { background-color: #e6ffed; color: #28a745; border: 1px solid #28a745; }
+
+/* Status Styles */
+.status-active { background-color: #e6ffed; color: #28a745; border: 1px solid #28a745; }
+.status-pending { background-color: #fff9e6; color: #ffc107; border: 1px solid #ffc107; }
+.status-banned { background-color: #ffe6e6; color: #dc3545; border: 1px solid #dc3545; } 
+
+
+/* Style cho Dropdown Trạng thái */
+.status-select {
+    padding: 6px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Dữ liệu base64 cho icon mũi tên */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#495057" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); 
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.status-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Màu cho dropdown dựa trên trạng thái */
+.status-select.status-active { border-color: #28a745; color: #28a745; }
+.status-select.status-pending { border-color: #ffc107; color: #ffc107; }
+.status-select.status-banned { border-color: #dc3545; color: #dc3545; }
+
+
+/* --- 4. ACTION COLUMN & BUTTONS --- */
+.action-cell {
+    width: 150px; 
+    text-align: center !important;
+}
+
+.info-text, .no-action {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    font-size: 0.85em;
+    margin-left: 5px; 
+}
+
+.btn-edit {
+    background-color: #ffc107; 
+    color: #333;
+}
+.btn-edit:hover { background-color: #e0a800; }
+
+.btn-delete {
+    background-color: #dc3545; 
+    color: white;
+}
+.btn-delete:hover { background-color: #c82333; }
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-primary:hover { background-color: #0056b3; }
+
+.btn-ghost {
+    background: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+.btn-ghost:hover {
+    background: #d4d8db;
+}
+
+
+/* --- 5. MODAL CHO CHỨC NĂNG SỬA --- */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+    width: 450px; 
+    max-width: 90%;
+    animation: fadeIn 0.3s ease-out; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal h3 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 10px;
+}
+
+/* Form elements trong Modal */
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.modal input, .modal select {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    transition: border-color 0.2s;
+    background-color: #f8f9fa; 
+}
+
+.modal input:focus, .modal select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+    background-color: #fff;
+    outline: none;
+}
+
+/* Nhóm nút trong Modal */
+.modal .btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal .btn-primary {
+    order: 1; 
+    flex-grow: 1;
+}
+
+.modal .btn-ghost {
+    order: 0; 
+    flex-grow: 1;
+}
+.search-input {
+    padding: 10px 15px;
+    width: 300px; /* Độ rộng vừa phải */
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}

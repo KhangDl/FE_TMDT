@@ -4,6 +4,9 @@ import ShopInfo from "./ShopInfo";
 import ProductManager from "./ProductManager";
 import OrderManager from "./OrderManager";
 import StatsPanel from "./StatsPanel";
+import SellerProfile from "../Profile/SellerProfile";
+
+
 
 export default function SellerDashboard() {
   const navigate = useNavigate();
@@ -53,6 +56,12 @@ export default function SellerDashboard() {
           >
             📊 Thống kê
           </button>
+          <button
+          onClick={() => setActiveTab("profile")}
+          style={activeTab === "profile" ? btnActive: btn}
+          >
+          👤 Hồ sơ cá nhân
+          </button>
         </nav>
 
         <button onClick={handleLogout} style={logoutBtn}>
@@ -65,6 +74,7 @@ export default function SellerDashboard() {
         <header style={header}>
           <h1 style={pageTitle}>
             {activeTab === "shop" && "🏪 Quản lý cửa hàng"}
+            {activeTab === "profile" && "👤 Hồ sơ cá nhân" }
             {activeTab === "products" && "📦 Quản lý sản phẩm"}
             {activeTab === "orders" && "🧾 Quản lý đơn hàng"}
             {activeTab === "stats" && "📊 Thống kê bán hàng"}
@@ -73,6 +83,7 @@ export default function SellerDashboard() {
 
         <div style={pageBody}>
           {activeTab === "shop" && <ShopInfo />}
+          {activeTab === "profile" && <SellerProfile name = {name}/>}
           {activeTab === "products" && <ProductManager />}
           {activeTab === "orders" && <OrderManager />}
           {activeTab === "stats" && <StatsPanel />}

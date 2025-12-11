@@ -1,0 +1,345 @@
+/* --- BIẾN VÀ RESET CƠ BẢN --- */
+:root {
+    --primary-color: #007bff; /* Xanh dương */
+    --secondary-color: #6c757d; /* Xám */
+    --success-color: #28a745; /* Xanh lá */
+    --danger-color: #dc3545; /* Đỏ */
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --border-color: #dee2e6;
+    --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Vùng chứa chính --- */
+.buyer-home-wrap {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Button cơ bản --- */
+.btn-base {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.btn-base:hover {
+    transform: translateY(-1px);
+}
+
+.btn-base.btn-blue {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-base.btn-blue:hover {
+    background-color: #0056b3;
+}
+
+.btn-base.btn-gray {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-base.btn-gray:hover {
+    background-color: #5a6268;
+}
+
+/* --- Headers và Titles --- */
+.section-title {
+    font-size: 1.8rem;
+    color: #343a40;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.section-desc {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+/* --- HEADER MUA SẮM (Nút giỏ hàng) --- */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.cart-header .btn-blue:disabled {
+    background-color: #adb5bd;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --------------------------------------
+    1. GIAO DIỆN SHOP (Shop Grid)
+-------------------------------------- */
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.shop-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.shop-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shop-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid var(--primary-color);
+}
+
+.shop-area {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+/* --- SHOP DETAIL --- */
+.shop-detail-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 15px;
+    background-color: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.shop-logo-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+}
+
+/* --------------------------------------
+    2. GIAO DIỆN SẢN PHẨM (Product Grid)
+-------------------------------------- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-info-wrapper {
+    padding: 15px;
+    flex-grow: 1; /* Đảm bảo chiều cao đồng nhất */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    color: #343a40;
+}
+
+.product-name-link {
+    text-decoration: none;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: var(--danger-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.shop-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.shop-link .shop-logo {
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+.add-to-cart-btn {
+    background-color: var(--success-color);
+    color: white;
+    padding: 8px;
+    width: 100%;
+    margin-top: auto; /* Đẩy xuống cuối cùng */
+}
+
+/* --------------------------------------
+    3. GIAO DIỆN CHECKOUT PAGE (Trang riêng)
+-------------------------------------- */
+.checkout-page-container {
+    max-width: 900px; /* Nhỏ hơn trang chính */
+}
+
+.back-to-home-btn {
+    margin-bottom: 25px;
+}
+
+.checkout-content-wrapper {
+    background: var(--bg-light);
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.cart-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 50px 1fr 150px auto; /* Ảnh | Tên/Giá | Thao tác | Tổng */
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px dashed var(--border-color);
+    gap: 15px;
+}
+
+.cart-item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-weight: 600;
+}
+
+.item-price-single {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+}
+
+.btn-remove {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--danger-color);
+    justify-self: end;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding-top: 15px;
+    border-top: 2px solid var(--primary-color);
+    margin-top: 15px;
+}
+
+/* --- Form Thanh toán --- */
+.form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form input, .form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn.big.primary {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}

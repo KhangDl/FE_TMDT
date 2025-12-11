@@ -1,289 +1,340 @@
-import React, { useState } from "react";
-import api from "../../services/api";
-import "../../css/Home.css";
-import { useNavigate } from "react-router-dom";
+// src/pages/Customer/Home.jsx
 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../../css/Home.css"; 
+import { Link, useNavigate } from "react-router-dom";
+import useCart from "../../hooks/useCart";
+import { useAuth } from "../../context/AuthContext";
 
-export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
-  const navigate = useNavigate();
+// IMPORTS CÁC MODAL (Giữ nguyên các Modal)
+import AuthSection from "../../components/AuthSection"; // <-- Sẽ tạo component này
+import CheckoutModal from "../Buyer/CheckoutPage";
+import LoginModal from "../../pages/Auth/Login";
+import CreateShopModal from "../../pages/Auth/CreateShopModal";
+import RegisterModal from "../../pages/Auth/RegisterModal";
+// KHÔNG CẦN import BuyerProfile ở đây nếu nó là trang riêng
 
+// Banner
+const MOCK_BANNERS = [
+    { id: 1, imgUrl: "/src/img/banner1.jpg", link: "/deal1", title: "Khuyến mãi chào hè" },
+    { id: 2, imgUrl: "/src/img/banner2.jpg", link: "/freeship", title: "Freeship toàn khu vực" },
+    { id: 3, imgUrl: "/src/img/banner3.jpg", link: "/newarrivals", title: "Sản phẩm mới về" },
+];
+const BannerCarousel = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
 
-  // Điều khiển 3 modal
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showCreateShop, setShowCreateShop] = useState(false);
-
-  // Form đăng nhập
-  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
-
-  // Form đăng ký người mua
-  const [registerForm, setRegisterForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    address: "",
-  });
-
-  // Form tạo cửa hàng (dành cho người chưa có tài khoản)
-  const [sellerForm, setSellerForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    address: "",
-    area: "",
-    shopName: "",
-    shopDescription: "",
-    logo: "",
-  });
-
-  // Xử lý đăng nhập
-  const handleLogin = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setMsg("");
-
-  try {
-    const res = await api.post("/auth/login", loginForm);
-    const { token, role } = res.data;
-
-    // ✅ Lưu token và role
-    localStorage.setItem("token", token);
-    localStorage.setItem("role", role);
-
-    setMsg("✅ Đăng nhập thành công!");
-
-    // ✅ Chuyển trang theo vai trò
-    setTimeout(() => {
-      if (role === "admin") navigate("/admin/dashboard");
-      else if (role === "seller") navigate("/seller/dashboard");
-      else navigate("/buyer/home");
-    }, 800);
-  } catch (err) {
-    setMsg(err.response?.data || "❌ Đăng nhập thất bại!");
-  } finally {
-    setLoading(false);
-    setShowLogin(false);
-  }
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveIndex(prevIndex => 
+                (prevIndex + 1) % MOCK_BANNERS.length
+            );
+        }, 5000); 
+        return () => clearInterval(interval);
+    }, []);
+    const handleDotClick = (index) => {
+        setActiveIndex(index);
+    };
+return (
+        <div className="main-carousel-container">
+            <div className="carousel-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+                {MOCK_BANNERS.map((banner, index) => (
+                    <Link to={banner.link} key={banner.id} className="carousel-slide">
+                        <img src={banner.imgUrl} alt={banner.title} />
+                    </Link>
+                ))}
+            </div>
+            <div className="carousel-dots">
+                {MOCK_BANNERS.map((_, index) => (
+                    <span
+                        key={index}
+                        className={`dot ${index === activeIndex ? 'active' : ''}`}
+                        onClick={() => handleDotClick(index)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 
-  // Xử lý đăng ký người mua
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMsg("");
-    try {
-      await api.post("/auth/register", registerForm);
-      setMsg("✅ Đăng ký thành công! Vui lòng đăng nhập.");
-      setShowRegister(false);
-      setShowLogin(true);
-    } catch (err) {
-      setMsg(err.response?.data || "❌ Đăng ký thất bại!");
-    } finally {
-      setLoading(false);
+const MOCK_CATEGORIES = [
+    { id: 1, name: "Thời Trang Nam", iconUrl:"/src/img/OIF.webp" },
+    { id: 2, name: "Điện Thoại & Phụ Kiện", iconUrl: "/src/img/DT.webp" },
+    { id: 3, name: "Thiết Bị Điện Tử", iconUrl:"/src/img/TBDT.webp" },
+    { id: 4, name: "Máy Tính & Laptop", iconUrl: "/src/img/MT.webp" },
+    { id: 5, name: "Đồ Gia Dụng", iconUrl: "/src/img/DGD.webp"},
+    { id: 6, name: "Thể Thao & Du Lịch", iconUrl: "/src/img/DTT.webp" },
+    { id: 7, name: "Ô Tô & Xe Máy & Xe Đạp", iconUrl: "/src/img/XM.webp" },
+    { id: 8, name: "Thời Trang Nữ", iconUrl: "/src/img/TTN.webp" },
+    { id: 9, name: "Sắc Đẹp & Sức Khỏe", iconUrl: "/src/img/SD.webp" },
+    { id: 10, name: "Giày Dép Nữ", iconUrl: "/src/img/GD.webp" },
+    { id: 11, name: "Nhà Sách Online", iconUrl: "/src/img/NS.webp" },
+];
+
+
+export default function Home() {
+    // 1. STATE CHUNG & KẾT NỐI HOOK
+    const { isAuthenticated, userRole } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const [msg, setMsg] = useState("");
+    const navigate = useNavigate();
+
+    // Kết nối Cart Hook
+    const { handleAddToCart } = useCart();
+
+    // Dữ liệu sản phẩm
+    const [products, setProducts] = useState([]);
+    const [productsLoading, setProductsLoading] = useState(true);
+
+    // Dữ liệu TÌM KIẾM
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Điều khiển Modals
+    const [showLogin, setShowLogin] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
+    const [showCreateShop, setShowCreateShop] = useState(false);
+    const [showCheckout, setShowCheckout] = useState(false);
+    // Đã xóa showProfile
+
+    // 2. PUBLIC API
+    const publicApi = axios.create({
+        baseURL: "http://localhost:5146/api",
+    });
+
+    useEffect(() => {
+        const fetchAllProducts = async () => {
+            try {
+                const res = await publicApi.get("/Products/all"); 
+                setProducts(res.data);
+            } catch (err) {
+                console.error("Lỗi khi tải tất cả sản phẩm:", err);
+            } finally {
+                setProductsLoading(false);
+            }
+        };
+        fetchAllProducts();
+    }, []);
+
+    // 4. LOGIC TÌM KIẾM
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+            setSearchTerm('');
+        }
+    };
+    
+    // 5. HÀM CHUYỂN HƯỚNG ĐẾN TRANG PROFILE MỚI
+    const handleShowProfile = () => {
+        // Sử dụng navigate để chuyển hướng đến trang profile
+        navigate("/profile"); 
+    };
+
+    // 6. HÀM RENDER DANH MỤC MỚI (Giữ nguyên)
+    const renderCategories = () => (
+        <div className="category-section-wrapper">
+            <h3 className="section-title">DANH MỤC</h3>
+            <div className="category-grid">
+                {MOCK_CATEGORIES.map(cat => (
+                    <Link to={`/category/${cat.id}`} key={cat.id} className="category-item">
+                        <img src={cat.iconUrl} alt={cat.name} className="category-icon" />
+                        <span className="category-name">{cat.name}</span>
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
+
+    const renderProductCard = (product) => {
+        const shopName = product.ShopName || "Shop không xác định";
+
+        return (
+            <div key={product.id} className="product-card">
+                <Link to={`/product/${product.id}`} >
+                    <img
+                        src={product.image || "https://via.placeholder.com/250x250"}
+                        alt={product.name}
+                        className="product-image"
+                    />
+                </Link>
+                <div className="product-info-wrapper">
+                    <Link to={`/product/${product.id}`} className="product-name-link">
+                        <h4 className="product-name">{product.name}</h4>
+                    </Link>
+                    <p className="product-price">{product.price?.toLocaleString()} ₫</p>
+                    <Link
+                        to={`/shop/${product.ShopId || 1}`}
+                        className="shop-link"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <img
+                            src={product.ShopLogo || "https://via.placeholder.com/20x20"}
+                            alt="Shop Logo"
+                            className="shop-logo"
+                        />
+                        <span className="shop-name">{shopName}</span>
+                    </Link>
+
+                    {/* NÚT THÊM VÀO GIỎ HÀNG */}
+                    <button
+                        type="button"
+                        className="btn small primary add-to-cart-btn"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToCart(product);
+                        }}
+                    >
+                        + Thêm vào giỏ
+                    </button>
+                </div>
+            </div>
+        );
     }
-  };
+    // KẾT THÚC HÀM RENDER PRODUCT CARD
 
-  // Xử lý tạo cửa hàng + tài khoản seller
-  const handleCreateShop = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMsg("");
-    try {
-      await api.post("/auth/register-seller", sellerForm);
-      setMsg("✅ Đăng ký & tạo cửa hàng thành công! Vui lòng chờ admin duyệt.");
-      setShowCreateShop(false);
-    } catch (err) {
-      setMsg(err.response?.data || "❌ Không thể tạo cửa hàng!");
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  return (
-    <div className="home-wrap">
-      {/* Header */}
-      <header className="home-header">
-        <div className="brand">🛍️ AN KHANG BÌNH VƯỢNG SHOP</div>
-        <nav className="nav">
-          <button className="btn ghost" onClick={() => setShowLogin(true)}>
-            Đăng nhập
-          </button>
-          <button className="btn primary" onClick={() => setShowRegister(true)}>
-            Đăng ký người mua
-          </button>
-          <button className="btn seller" onClick={() => setShowCreateShop(true)}>
-             Tạo cửa hàng
-          </button>
-        </nav>
-      </header>
+    return (
+        <div className="home-wrap">
+            {/* HEADER */}
+            <header className="home-header">
+                <div className="header-top-bar">
+                    <div className="brand">
+                        <Link to="/" className="brand-link">
+                            🛍️ AN KHANG BÌNH VƯỢNG SHOP
+                        </Link>
+                    </div>
 
-      {/* Hero section */}
-      <section className="hero">
-        <h1>Kết nối người bán nhỏ lẻ với khách hàng quanh bạn</h1>
-        <p>
-          Bán hàng dễ dàng, mua sắm thuận tiện — nền tảng thương mại điện tử cộng đồng.
-        </p>
-        <button className="btn big" onClick={() => setShowCreateShop(true)}>
-          🏪 Trở thành người bán ngay hôm nay
-        </button>
-      </section>
+                    <AuthSection
+                        onShowLogin={() => setShowLogin(true)}
+                        onShowRegister={() => setShowRegister(true)}
+                        onShowCreateShop={() => setShowCreateShop(true)}
+                        onShowCheckout={() => setShowCheckout(true)}
+                        onshowProfile={handleShowProfile} // <-- Đã truyền hàm navigate vào đây
+                    />
+                </div>
 
-      <footer className="home-footer">
-        © {new Date().getFullYear()} ShopTMDT • Cộng đồng bán hàng địa phương
-      </footer>
+                <div className="center-search-wrapper">
+                    <form
+                        onSubmit={handleSearch}
+                        className="search-bar-container"
+                    >
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Tìm kiếm sản phẩm, shop, danh mục..."
+                        />
+                        <button type="submit" className="search-btn">
+                            🔍
+                        </button>
+                    </form>
+                </div>
 
-      {/* Thông báo */}
-      {msg && (
-        <div className="toast" onClick={() => setMsg("")}>
-          {msg}
+            </header>
+
+            {!isAuthenticated || userRole === 'buyer' ? (
+                <div className="seller-promotion-banner">
+                    <div className="banner-content">
+                        <h4 className="banner-title">
+                            🎉 Mở cửa hàng online miễn phí ngay hôm nay!
+                        </h4>
+                        <ul className="seller-benefits">
+                            <li>🚀 Tiếp cận khách hàng: Bán hàng đến cộng đồng địa phương của bạn.</li>
+                            <li>💰 Thu nhập ổn định: Tăng doanh số không cần phí duy trì hàng tháng.</li>
+                            <li>🛠️ Quản lý đơn giản: Công cụ quản lý sản phẩm và đơn hàng trực quan.</li>
+                        </ul>
+                    </div>
+                    <div className="banner-action">
+                        <button
+                            className="btn seller banner-cta-btn no-wrap"
+                            onClick={() => setShowCreateShop(true)}
+                        >
+                            Bán hàng ngay!
+                        </button>
+                        <p className="banner-hint">
+                            Không mất phí khởi tạo!
+                        </p>
+                    </div>
+                </div>
+            ) : null}
+            
+            {/* CHÈN BANNER CAROUSEL */}
+            <BannerCarousel />
+            {/* ------------------- */}
+            
+            {/* CHÈN DANH MỤC */}
+            {renderCategories()} 
+            {/* ------------------- */}
+
+            <section className="product-showcase-section">
+                <h2 className="section-title">✨ Sản phẩm nổi bật gần bạn</h2>
+                
+                <div className="body-product">
+                    <div className="img-left-body">
+                        <img 
+                            className="img_banner" 
+                            src="https://bizweb.dktcdn.net/100/294/085/themes/936041/assets/banner_tab1_1.jpg?1707302368965" 
+                            alt="Banner Quảng Cáo" 
+                        />
+                    </div>
+                    
+                    {productsLoading ? (
+                        <p className="loading-text">Đang tải sản phẩm...</p>
+                    ) : products.length === 0 ? (
+                        <p className="no-products-text">Hiện tại chưa có sản phẩm nào được bán.</p>
+                    ) : (
+                        <div className="product-grid">
+                            {products.slice(0, 100).map(p => (
+                                renderProductCard(p)
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </section>
+
+            <footer className="home-footer">
+                © {new Date().getFullYear()} ShopTMDT • Cộng đồng bán hàng địa phương
+            </footer>
+
+            {msg && (
+                <div className="toast" onClick={() => setMsg("")}>
+                    {msg}
+                </div>
+            )}
+
+            {showLogin && (
+                <LoginModal
+                    onClose={() => setShowLogin(false)}
+                    setLoading={setLoading}
+                    setMsg={setMsg}
+                    loading={loading}
+                />
+            )}
+            {showRegister && (
+                <RegisterModal
+                    onClose={() => setShowRegister(false)}
+                    setLoading={setLoading}
+                    setMsg={setMsg}
+                    loading={loading}
+                />
+            )}
+            {showCreateShop && (
+                <CreateShopModal
+                    onClose={() => setShowCreateShop(false)}
+                    setLoading={setLoading}
+                    setMsg={setMsg}
+                    loading={loading}
+                />
+            )}
+            {showCheckout && (
+                <CheckoutModal
+                    onClose={() => setShowCheckout(false)}
+                    setLoading={setLoading}
+                    setMsg={setMsg}
+                />
+            )}
+            {/* ĐÃ XÓA RENDER PROFILE MODAL Ở ĐÂY */}
         </div>
-      )}
-
-      {/* ========== Modal Đăng nhập ========== */}
-      {showLogin && (
-        <div className="modal-backdrop" onClick={() => setShowLogin(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3>🔐 Đăng nhập</h3>
-            <form onSubmit={handleLogin} className="form">
-              <label>Email</label>
-              <input
-                type="email"
-                value={loginForm.email}
-                onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                required
-              />
-              <label>Mật khẩu</label>
-              <input
-                type="password"
-                value={loginForm.password}
-                onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                required
-              />
-              <button className="btn primary" disabled={loading}>
-                {loading ? "Đang đăng nhập..." : "Đăng nhập"}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ========== Modal Đăng ký người mua ========== */}
-      {showRegister && (
-        <div className="modal-backdrop" onClick={() => setShowRegister(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3>📝 Đăng ký người mua</h3>
-            <form onSubmit={handleRegister} className="form">
-              <label>Họ và tên</label>
-              <input
-                value={registerForm.name}
-                onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
-                required
-              />
-              <label>Email</label>
-              <input
-                type="email"
-                value={registerForm.email}
-                onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
-                required
-              />
-              <label>Mật khẩu</label>
-              <input
-                type="password"
-                value={registerForm.password}
-                onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
-                required
-              />
-              <label>Số điện thoại</label>
-              <input
-                value={registerForm.phone}
-                onChange={(e) => setRegisterForm({ ...registerForm, phone: e.target.value })}
-              />
-              <label>Địa chỉ</label>
-              <input
-                value={registerForm.address}
-                onChange={(e) => setRegisterForm({ ...registerForm, address: e.target.value })}
-              />
-              <button className="btn primary" disabled={loading}>
-                {loading ? "Đang đăng ký..." : "Tạo tài khoản"}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ========== Modal Tạo cửa hàng + tài khoản seller ========== */}
-      {showCreateShop && (
-        <div className="modal-backdrop" onClick={() => setShowCreateShop(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3>🏪 Đăng ký tài khoản người bán & tạo cửa hàng</h3>
-            <form onSubmit={handleCreateShop} className="form">
-              <label>Họ và tên</label>
-              <input
-                value={sellerForm.name}
-                onChange={(e) => setSellerForm({ ...sellerForm, name: e.target.value })}
-                required
-              />
-              <label>Email</label>
-              <input
-                type="email"
-                value={sellerForm.email}
-                onChange={(e) => setSellerForm({ ...sellerForm, email: e.target.value })}
-                required
-              />
-              <label>Mật khẩu</label>
-              <input
-                type="password"
-                value={sellerForm.password}
-                onChange={(e) => setSellerForm({ ...sellerForm, password: e.target.value })}
-                required
-              />
-              <label>Số điện thoại</label>
-              <input
-                value={sellerForm.phone}
-                onChange={(e) => setSellerForm({ ...sellerForm, phone: e.target.value })}
-              />
-              <label>Địa chỉ</label>
-              <input
-                value={sellerForm.address}
-                onChange={(e) => setSellerForm({ ...sellerForm, address: e.target.value })}
-              />
-              <label>Khu vực</label>
-              <input
-                value={sellerForm.area}
-                onChange={(e) => setSellerForm({ ...sellerForm, area: e.target.value })}
-              />
-              <hr />
-              <label>Tên cửa hàng</label>
-              <input
-                value={sellerForm.shopName}
-                onChange={(e) => setSellerForm({ ...sellerForm, shopName: e.target.value })}
-                required
-              />
-              <label>Mô tả cửa hàng</label>
-              <input
-                value={sellerForm.shopDescription}
-                onChange={(e) =>
-                  setSellerForm({ ...sellerForm, shopDescription: e.target.value })
-                }
-              />
-              <label>Logo (URL)</label>
-              <input
-                value={sellerForm.logo}
-                onChange={(e) => setSellerForm({ ...sellerForm, logo: e.target.value })}
-              />
-
-              <button className="btn primary" disabled={loading}>
-                {loading ? "Đang xử lý..." : "Đăng ký & tạo cửa hàng"}
-              </button>
-            </form>
-          </div>
-        </div>  
-      )}
-    </div>
-  );
+    );
 }

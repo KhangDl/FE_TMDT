@@ -1,219 +1,602 @@
-/* =============================
-   🌐 BỐ CỤC CHUNG
-============================= */
-.home-wrap {
-  font-family: "Inter", sans-serif;
-  color: #222;
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* src/css/Home.css */
+
+/* ======================================================= */
+/* --- 1. BIẾN & CHUNG --- */
+/* ======================================================= */
+:root {
+    --primary-color: #ee4d2d; 
+    --secondary-color: #007bff;
+    --seller-color: #28a745;
+    --background-color: #f5f5f5;
+    --card-color: #fff;
+    --text-color: #333;
+    --shadow-light: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* =============================
-   🔹 HEADER
-============================= */
+.home-wrap {
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+
 .home-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 60px;
-  background: #ffffff;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+    background-color: #98FB98;
+    padding: 15px 50px;
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 100px; 
+    position: sticky;
+    top: 0;
+    z-index: 990;
 }
 
 .brand {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #1677ff;
-  cursor: pointer;
-  user-select: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    white-space: nowrap; 
 }
 
+.brand-link {
+    text-decoration: none; 
+    color: white; 
+}
+
+/* ⭐️ CSS cho AuthSection (thẻ <nav> trong AuthSection.jsx) */
 .nav {
-  display: flex;
-  gap: 12px;
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
 }
 
-/* =============================
-   🎯 HERO SECTION
-============================= */
-.hero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(to bottom, #f9fbff, #ffffff);
+/* ⭐️ Class mới để nhóm các nút Auth */
+.auth-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
-.hero h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 12px;
+/* ======================================================= */
+/* --- 3. BANNER KHUYẾN KHÍCH NGƯỜI BÁN --- */
+/* ======================================================= */
+.seller-promotion-banner {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+    padding: 20px 50px;
+    margin-bottom: 30px; 
+    margin-top: 30px; 
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100px; 
+    
+    /* Màu sắc */
+    background-color: #e6f7d4; /* Xanh nhạt */
+    color: #333;
+    border: 1px solid #d4edc9;
+    border-radius: 8px;
 }
 
-.hero p {
-  color: #555;
-  font-size: 1rem;
-  max-width: 600px;
-  margin: 0 auto 25px auto;
-  line-height: 1.6;
+.seller-promotion-banner .banner-content {
+    flex-grow: 1; 
+    max-width: 70%; 
+    padding-right: 20px;
 }
 
-.hero .btn.big {
-  padding: 14px 28px;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  font-weight: 500;
+/* ⭐️ CSS cho Banner Title (thay thế style inline) */
+.seller-promotion-banner .banner-title {
+    margin: 0 0 10px 0; /* Thêm margin bottom */
+    color: var(--seller-color);
+    font-size: 1.4em;
 }
 
-/* =============================
-   🧭 BUTTON STYLE
-============================= */
+.seller-benefits {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu màn hình quá hẹp */
+}
+
+.seller-benefits li {
+    font-size: 0.95em;
+    color: #555;
+    /* white-space: nowrap; */ /* Tùy chọn, có thể gây tràn ngang nếu quá nhiều */
+}
+
+.seller-promotion-banner .banner-action {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+}
+
+/* ⭐️ CSS cho Banner CTA Button (thay thế style inline) */
+.seller-promotion-banner .banner-cta-btn {
+    padding: 12px 25px;
+    white-space: nowrap;
+}
+
+/* ⭐️ CSS cho Banner Hint (thay thế style inline) */
+.seller-promotion-banner .banner-hint {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 0; 
+}
+
+
+/* ======================================================= */
+/* --- 4. BUTTONS (BTN) --- */
+/* ======================================================= */
 .btn {
-  border: none;
-  outline: none;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .btn.primary {
-  background: #1677ff;
-  color: #fff;
-}
-
-.btn.primary:hover {
-  background: #005ee6;
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .btn.ghost {
-  background: white;
-  border: 1px solid #ccc;
-  color: #333;
-}
-
-.btn.ghost:hover {
-  border-color: #1677ff;
-  color: #1677ff;
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
 .btn.seller {
-  background: #f59e0b;
-  color: white;
+    background-color: var(--seller-color);
+    color: white;
 }
 
-.btn.seller:hover {
-  background: #d97706;
+.btn.big {
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* =============================
-   🧱 MODAL
-============================= */
+.btn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* ======================================================= */
+/* --- 5. TOAST & HERO --- */
+/* ======================================================= */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--seller-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.hero {
+    background-color: #fff0f0; 
+    padding: 80px 50px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* ======================================================= */
+/* --- 6. MODAL & FORM (TỐI ƯU CHO FORM 2 CỘT) --- */
+/* ======================================================= */
 .modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
 .modal {
-  background: white;
-  border-radius: 10px;
-  width: 400px;
-  max-height: 90vh;
-  padding: 25px 30px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-  text-align: left;
-  overflow-y: auto;
+    background-color: var(--card-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 450px; 
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 20px;
+}
+
+.form-full-width {
+    grid-column: 1 / -1;
 }
 
 .modal h3 {
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 18px;
-  color: #1677ff;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
 }
 
 .form label {
-  display: block;
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 4px;
-  font-weight: 500;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-color);
 }
 
-.form input {
-  width: 100%;
-  padding: 9px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  transition: all 0.25s ease;
-}
-
-.form input:focus {
-  border-color: #1677ff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(22, 119, 255, 0.2);
+.form input,
+.form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .form hr {
-  margin: 18px 0;
-  border: none;
-  border-top: 1px solid #eee;
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eee;
 }
 
-/* =============================
-   🍞 TOAST
-============================= */
-.toast {
-  position: fixed;
-  bottom: 22px;
-  right: 25px;
-  background: #111;
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  animation: fadeIn 0.3s ease-in-out;
+.form button.primary {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ======================================================= */
+/* --- 7. PRODUCT SHOWCASE --- */
+/* ======================================================= */
+.product-showcase-section {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* =============================
-   ⚓ FOOTER
-============================= */
+.loading-text, .no-products-text {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 40px 0;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.product-info-wrapper {
+    padding: 10px;
+}
+
+.product-name {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 5px;
+    height: 3em; 
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.shop-link {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #777;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.shop-logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+    border: 1px solid #eee;
+}
+
+.shop-name:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+.view-all-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn.view-all-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 1rem;
+    padding: 12px 25px;
+}
+
+/* ======================================================= */
+/* --- 8. FOOTER --- */
+/* ======================================================= */
 .home-footer {
-  text-align: center;
-  padding: 18px 10px;
-  font-size: 14px;
-  color: #666;
-  border-top: 1px solid #eee;
-  background-color: #fafafa;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+    color: #999;
+    font-size: 0.9rem;
 }
+.center-search-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 800px;
+    max-width: 100%; 
+}
+.header-top-bar{
+    display: flex;
+    gap: 500px;
+}
+.search-bar-container input {
+    padding: 10px 15px;
+    border: none;
+    outline: none; 
+    min-width: 250px;
+    flex-grow: 1; 
+    margin-bottom: 0;
+}
+
+.search-bar-container .search-btn {
+    background-color: #4dff91;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 600;
+    height: 100%;
+    transition: background-color 0.2s;
+    width: auto; 
+}
+/* Product Card */
+
+.body-product{
+    display: flex;
+    gap: 5px;
+    align-items: flex-start; 
+    padding-top: 20px;
+}
+.img-left-body {
+    flex-shrink: 0; 
+    width: 500px; 
+    
+}
+.img-left-body .img_banner {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; 
+    display: block; 
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 5px;
+    flex-grow: 1;
+}
+
+.product-card {
+    background-color: var(--card-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none; 
+    color: var(--text-color);
+    
+}
+/* Danh Muc */
+
+.category-section-wrapper {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.category-section-wrapper .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.category-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px 0; 
+    max-height: 300px; 
+    overflow: hidden; 
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 10%; 
+    padding: 10px 5px;
+    text-decoration: none;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.category-item:hover {
+    color: #00ff44; 
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; 
+    object-fit: cover;
+    margin-bottom: 5px;
+    border: 1px solid #eee;
+}
+
+.category-name {
+    font-size: 12px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+}
+
+
+@media (max-width: 1200px) {
+    .category-item {
+        width: 12.5%;
+    }
+}
+@media (max-width: 768px) {
+    .category-grid {
+        flex-wrap: nowrap;
+        overflow-x: scroll; 
+        padding-bottom: 10px;
+    }
+    .category-item {
+        min-width: 80px;
+    }
+}
+/* --- BANNER CAROUSEL STYLES --- */
+
+.main-carousel-container {
+    width: 100%;
+    overflow: hidden; 
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out; 
+}
+
+.carousel-slide {
+    min-width: 100%; 
+    flex-shrink: 0;
+    height: 250px; 
+}
+
+.carousel-slide img {
+    width: 450px;
+    height: 250px;
+    object-fit: cover; 
+    border-radius: 8px;
+    max-height: 250px; 
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dot.active {
+    background-color: #ffffff;
+    border: 1px solid #ff6347;
+}
+
+/* MEDIA QUERY: Giảm chiều cao banner trên thiết bị nhỏ */
+@media (max-width: 768px) {
+    .carousel-slide {
+        /* Giảm thêm trên di động để tối ưu hiển thị (Ví dụ 100px) */
+        height: 100px; 
+    }
+}
+
+

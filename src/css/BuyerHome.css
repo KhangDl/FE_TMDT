@@ -1,0 +1,216 @@
+/* src/css/BuyerHome.css */
+
+/* --- 1. BIẾN VÀ CHUNG --- */
+:root {
+    --primary-color: #ee4d2d;
+    --seller-color: #28a745;
+    --blue-color: #007bff;
+    --text-color: #333;
+    --secondary-text-color: #666;
+    --background-color: #f0f0f0;
+    --card-color: #fff;
+    --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buyer-home-wrap {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: Arial, sans-serif;
+}
+
+.section-title {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.section-desc {
+    color: var(--secondary-text-color);
+    margin-bottom: 30px;
+}
+
+/* --- 2. BỐ CỤC SHOP CARD (Shop List Grid) --- */
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.shop-card {
+    background-color: var(--card-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    text-align: center;
+}
+
+.shop-card img.shop-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #eee;
+}
+
+.shop-area {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+/* --- 3. SHOP DETAIL HEADER --- */
+.shop-detail-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.shop-detail-header img.shop-logo-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 3px solid #f0f0f0;
+}
+
+/* --- 4. BUTTONS & ACTIONS (BTN) --- */
+.btn-base {
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-blue {
+    background-color: var(--blue-color);
+    color: white;
+}
+
+.btn-gray {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin-top: 20px; /* Dành cho nút Back to shop list */
+}
+
+.btn-buy {
+    background-color: var(--seller-color);
+    color: white;
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.btn-checkout {
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 20px;
+    padding: 12px 20px;
+    width: 100%;
+}
+
+.btn-remove {
+    background-color: #dc3545; /* Red */
+    color: white;
+    padding: 5px 10px;
+}
+
+
+/* --- 5. CHECKOUT / CART --- */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-step-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    max-width: 1000px;
+    margin: 20px auto; /* Để căn giữa khi ở chế độ checkout */
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dotted #eee;
+}
+
+.cart-item-price {
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+
+.cart-total-summary {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.cart-total-summary strong {
+    font-size: 1.1em;
+}
+
+.cart-total-summary span {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    float: right;
+}
+
+.checkout-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* --- 7. CONFIRMATION (BƯỚC 3) --- */
+.success-message {
+    font-size: 1.2em;
+    color: var(--seller-color);
+}
+
+.order-summary-box {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: left;
+}
+.order-summary-box hr {
+    margin: 10px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+.add-to-cart-btn {
+    margin-top: 10px;
+    width: 100%; 
+}

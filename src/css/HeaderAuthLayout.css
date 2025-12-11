@@ -1,0 +1,287 @@
+
+.header-auth-section {
+    display: flex;
+    align-items: center;
+    gap: 0; 
+    height: 100%; 
+    margin-left: 250px;
+    border-top-left-radius: 20%;
+    border-bottom-left-radius: 20%;
+}
+
+.auth-user-icon {
+    /* Màu nền đỏ chủ đạo */
+    background-color: #17a2b8; 
+    color: white;
+    width: 100px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    position: relative; 
+    z-index: 50;
+    transition: background-color 0.2s;
+    
+    /* ⭐️ CHỈNH SỬA BO TRÒN 2 GÓC TRÁI (Top-Left và Bottom-Left) ⭐️ */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    /* Đảm bảo 2 góc bên phải là vuông */
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.auth-user-icon:hover {
+    background-color: #edb4b3;
+}
+.btn_Catogori {
+    font-size: small;
+    white-space: nowrap;
+}
+
+
+.auth-cart-box {
+    /* Màu nền: Xám đậm hơn (chuyên nghiệp hơn màu xám nhạt #948a8a) */
+    background-color: #333333; 
+    color: white;
+    
+    /* Thống nhất chiều cao với nút Tài khoản */
+    height: 45px; 
+    padding: 0 15px; /* Điều chỉnh padding ngang cho gọn */
+    
+    /* ⭐️ Thay đổi: Icon và chữ nằm trên cùng một hàng ⭐️ */
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Khoảng cách giữa icon và chữ */
+    
+    cursor: pointer;
+    border: none;
+    position: relative;
+    transition: background-color 0.2s;
+    
+    /* ⭐️ Bo tròn 2 góc bên phải (Top-Right và Bottom-Right) ⭐️ */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* Đảm bảo 2 góc bên trái là vuông để khớp với nút Tài khoản */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.auth-cart-box:hover:not(:disabled) {
+    /* Màu hover tối hơn */
+    background-color: #444444; 
+    color: white;
+}
+
+.auth-cart-box:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+    /* Màu nền khi disabled */
+    background-color: #555555; 
+}
+
+.auth-cart-box i {
+    font-size: 1.1rem;
+}
+
+.cart-text {
+    /* Tăng cỡ chữ Giỏ hàng cho dễ nhìn */
+    font-size: 0.9rem; 
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Số lượng sản phẩm trong giỏ */
+.cart-count {
+    position: absolute;
+    top: -5px; 
+    right: -5px; 
+    background-color: #17a2b8; 
+    color: #333;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 5px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1.1;
+    border: 1px solid white; 
+}
+
+/* ----------------------------------- */
+/* 3. Dropdown Menu */
+/* ----------------------------------- */
+
+.auth-dropdown-menu {
+    position: absolute;
+    top: 100%; 
+    /* Đảm bảo dropdown menu nằm gọn trong màn hình */
+    right: 0; 
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    width: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    z-index: 100;
+}
+
+.auth-dropdown-menu.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #f7f7f7;
+    border-radius: 6px 6px 0 0;
+}
+
+.menu-header p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.user-role-tag {
+    display: inline-block;
+    background-color: #ff6347;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-top: 5px;
+}
+
+.menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.menu-item.primary {
+    color: #ff6347;
+    font-weight: 600;
+}
+
+.menu-item.logout {
+    color: #d9534f;
+    border-top: 1px solid #eee;
+}
+
+.menu-item.logout:hover {
+    background-color: #fbecec;
+}
+.auth-dropdown-menu {
+    position: absolute;
+    top: 100%; 
+    right: 0; 
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    width: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    z-index: 100;
+}
+
+/* Kích hoạt trạng thái hiển thị */
+.auth-dropdown-menu.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #f7f7f7;
+    border-radius: 6px 6px 0 0;
+}
+
+.menu-header.guest-header p {
+    margin: 0;
+    color: #ff6347; /* Nhấn mạnh "Chưa đăng nhập" */
+    font-weight: 600;
+}
+
+.user-role-tag {
+    display: inline-block;
+    background-color: #ff6347;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-top: 5px;
+}
+
+.menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style đặc biệt cho các nút chức năng chính trong menu khách */
+.menu-item.login-option {
+    border-bottom: 1px solid #eee;
+    color: #007bff; /* Màu xanh nổi bật */
+}
+
+.menu-item.login-option:hover {
+    background-color: #eaf3ff;
+}
+
+.menu-item.seller-option {
+    color: #d15432; /* Màu cam/đỏ cho Seller */
+    font-weight: 600;
+    border-top: 1px solid #eee;
+}
+
+.menu-item.seller-option:hover {
+    background-color: #fceee7;
+}
+
+.menu-item.primary {
+    color: #ff6347;
+    font-weight: 600;
+}
+
+.menu-item.logout {
+    color: #d9534f;
+    border-top: 1px solid #eee;
+}
+
+.menu-item.logout:hover {
+    background-color: #fbecec;
+}
